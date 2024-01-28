@@ -11,4 +11,6 @@ Retro-aesthetic Pong as the classic videogame.
 
 | ![img](img/pong1.png)|![img](img/pong2.png) |
 |---|---|
-| ![img](img/pong3.png) | ![img](img/pong4.png) |
+| ![img](img/pong3.png) | ![img](img/pong4.png) |  
+
+> TODO: fix directory `assets`
