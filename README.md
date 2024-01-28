@@ -8,9 +8,12 @@ It contains the recreated videogames of each lecture with a personal style, and 
 
 Retro-aesthetic Pong as the classic videogame.  
 
-
 | ![img](img/pong1.png)|![img](img/pong2.png) |
 |---|---|
 | ![img](img/pong3.png) | ![img](img/pong4.png) |  
 
 > TODO: fix directory `assets`
+
+### Assignment: AI-controlled paddles
+
+The challenge is to implement a basic AI-controlled paddle such that both paddles will try to deflect the ball at all times. The script is implemented in the `main_task.lua` file.
