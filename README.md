@@ -17,3 +17,5 @@ Retro-aesthetic Pong as the classic videogame.
 ### Assignment: AI-controlled paddles
 
 The challenge is to implement a basic AI-controlled paddle such that both paddles will try to deflect the ball at all times. The script is implemented in the `main_task.lua` file.
+
+## 2. Flappy Bird
