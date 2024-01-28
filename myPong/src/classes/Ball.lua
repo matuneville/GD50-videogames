@@ -101,12 +101,12 @@ end
 function Ball:is_colliding(player)
 
     if  (player.player_number == 1 and
-        self.x < (player.x + player.width) and self.x > (player.x + player.width - 5) and -- check X
+        self.x < (player.x + player.width) and self.x > (player.x + player.width - 10) and -- check X
         self.y > player.y-5 and self.y < (player.y + player.height+5) and -- check Y
         not self.colliding) -- this condition to avoid bug that the paddle drags the ball
         or
         (player.player_number == 2 and
-        (self.x + self.width) > player.x and (self.x + self.width) < (player.x + 5) and -- check X
+        (self.x + self.width) > player.x and (self.x + self.width) < (player.x + 10) and -- check X
         self.y > player.y-5 and self.y < (player.y + player.height+5) and -- check Y
         not self.colliding)
         then
