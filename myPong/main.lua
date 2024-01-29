@@ -19,8 +19,8 @@ class = require 'lib.class'
 
 -- include classes for the game
 --
-require 'classes.Ball'
-require 'classes.Player'
+require 'src.classes.Ball'
+require 'src.classes.Player'
 
 -- define global attributes
 --
@@ -35,7 +35,7 @@ PADDLE_SPEED = 200
 POINTS_TO_WIN = 10
 WINNER = nil
 
-FONT = 'font.ttf'
+FONT = 'assets/font.ttf'
 
 --[[
     Runs when the game first starts up, only once; used to initialize the game.
@@ -54,14 +54,14 @@ function love.load()
         vsync = true
     }) -- last parammeter is a table for attributes
 
-    FONT_MSG =    love.graphics.newFont(FONT, 8)
+    FONT_MSG    = love.graphics.newFont(FONT, 8)
     FONT_WINNER = love.graphics.newFont(FONT, 16)
-    FONT_SCORE =  love.graphics.newFont(FONT, 40)
+    FONT_SCORE  = love.graphics.newFont(FONT, 40)
 
     SOUNDS = {
-        ['paddle_hit'] = love.audio.newSource('paddle_hit.wav', 'static'),
-        ['lost_ball'] = love.audio.newSource('lost_ball.wav', 'static'),
-        ['wall_hit'] = love.audio.newSource('wall_hit.wav', 'static')
+        ['paddle_hit'] = love.audio.newSource('assets/paddle_hit.wav', 'static'),
+        ['lost_ball']  = love.audio.newSource('assets/lost_ball.wav', 'static'),
+        ['wall_hit']   = love.audio.newSource('assets/wall_hit.wav', 'static')
     }
 
     -- initialize players' paddles
