@@ -41,6 +41,8 @@ require 'classes.StateMachine'
 require 'states.BaseState'
 require 'states.PlayState'
 require 'states.TitleScreenState'
+require 'states.ScoreState'
+require 'states.CountdownState'
 
 -- Random seed for trunks procedural generation
 --
@@ -74,6 +76,7 @@ function love.load()
     gStateMachine = StateMachine {
         ['title'] = function() return TitleScreenState() end,
         ['play'] = function() return PlayState() end,
+        ['score'] = function() return ScoreState() end
     }
 
     -- start with title screen
