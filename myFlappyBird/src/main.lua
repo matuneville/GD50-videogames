@@ -9,7 +9,7 @@
 push = require 'lib.push'
 class = require 'lib.class'
 
--- Global constants
+-- Window values
 --
 WIND_WIDTH  = 1280
 WIND_HEIGHT = 720
@@ -17,13 +17,30 @@ WIND_HEIGHT = 720
 VIRT_WIDTH  = 512
 VIRT_HEIGHT = 288
 
+-- Necessary loads
+--
 BIRD = love.graphics.newImage('assets/bird.png')
-TRUNK_UP = love.graphics.newImage('assets/trunk_up.png')
-TRUNK_DOWN = love.graphics.newImage('assets/trunk_down.png')
+TRUNK = love.graphics.newImage('assets/trunk.png')
+TRUNK_HEIGHT = TRUNK:getHeight()
+TRUNK_WIDTH = TRUNK:getWidth()
 
+-- Include classes and code for background behavior
+--
 require 'background'
 require 'classes.Bird'
 require 'classes.Trunk'
+require 'classes.TrunkPair'
+
+-- Bird instance for different states
+--
+bird = Bird()
+
+-- Include code and classes for state machine
+--
+require 'classes.StateMachine'
+require 'states.BaseState'
+require 'states.PlayState'
+require 'states.TitleScreenState'
 
 -- Random seed for trunks procedural generation
 --
@@ -31,10 +48,10 @@ math.randomseed(os.time())
 
 -- Objects and variables
 --
-local bird = Bird()
-local trunks = {}
 
-local spawn_t = 0
+local bird = Bird()
+local trunks_pairs = {}
+
 
 function love.load()
 
@@ -48,33 +65,29 @@ function love.load()
     -- initialize input table
     love.keyboard.keysPressed = {}
 
+    -- initialize fonts
+    FONT_FPS = love.graphics.newFont('assets/font_console.ttf', 8)
+    FONT_MID_SIZE = love.graphics.newFont('assets/font_console.ttf', 16)
+    FONT_TITLE = love.graphics.newFont('assets/font_title.ttf', 32)
+
+    -- initialize state machine with all state-returning functions
+    gStateMachine = StateMachine {
+        ['title'] = function() return TitleScreenState() end,
+        ['play'] = function() return PlayState() end,
+    }
+
+    -- start with title screen
+    gStateMachine:change('title')
 end
 
 
 function love.update(dt)
+
+    -- it should always be displayed, in any state
     update_background(dt)
 
-    bird:update(dt)
-
-    spawn_t = spawn_t + dt
-
-    -- spawn new trunk if it has passed 2 secs since the last one generated
-    if spawn_t > 2 then
-        table.insert(trunks, Trunk())
-        print('Added new pipe!')
-        spawn_t = 0
-    end
-
-    
-    for i, trunk in pairs(trunks) do
-        -- render each trunk
-        trunk:update(dt)
-
-        -- erase out of left bound trunk if necessary
-        if trunk.x + trunk.width  < 0 then
-            table.remove(trunks, i)
-        end
-    end
+    -- the state machine leads it to the right update method, of current state
+    gStateMachine:update(dt)
 
     -- reset input table so to detect new press next frame 
     love.keyboard.keysPressed = {}
@@ -87,15 +100,11 @@ function love.draw()
     -- Render backgrounds and ground
     draw_background()
 
-    -- Render bird
-    bird:draw()
+    gStateMachine:draw()
 
-    -- Render each trunk
-    for i, trunk in pairs(trunks) do
-        -- render each trunk
-        trunk:draw()
-    end
+    print_fps()
     
+    --debug_hitboxes()
 
     push:finish()
 end
@@ -130,4 +139,35 @@ function love.keyboard.wasPressed(key)
     else
         return false
     end
+end
+
+--[[
+    Print FPS
+]]
+function print_fps()
+    love.graphics.setColor(0, 0, 0, 0.5)
+    love.graphics.rectangle('fill', 0, 0, 15, 12)
+    
+    love.graphics.setFont(FONT_FPS)
+    love.graphics.setColor(1, 1, 1)
+
+    love.graphics.printf(tostring(love.timer.getFPS()), 3, 2, VIRT_WIDTH, 'left')
+end
+
+--[[
+    Debug function to render hitboxes
+]]
+function debug_hitboxes()
+
+    love.graphics.setColor(0, 1, 0) 
+    love.graphics.rectangle('line', bird.x, bird.y, bird.width - OFFSET_BIRD_HITBOX, bird.height)
+
+    for i, pair in pairs(trunks_pairs) do
+        local trunk1 = pair.trunks['upside']
+        local trunk2 = pair.trunks['downside']
+
+        love.graphics.rectangle('line', trunk1.x + OFFSET_TRUNK_HITBOX , trunk1.y, TRUNK_WIDTH - 2*OFFSET_TRUNK_HITBOX, trunk1.height)
+        love.graphics.rectangle('line', trunk2.x + OFFSET_TRUNK_HITBOX , trunk2.y, TRUNK_WIDTH - 2*OFFSET_TRUNK_HITBOX, trunk2.height)
+    end
+    
 end

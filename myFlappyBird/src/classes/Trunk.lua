@@ -17,12 +17,14 @@ Trunk = class{}
 --[[
     Trunk constructor
 ]]
-function Trunk:init()
-    self.width = TRUNK_DOWN:getWidth()
-    self.height = TRUNK_DOWN:getHeight()
+function Trunk:init(orientation, y)
+    self.width = TRUNK:getWidth()
+    self.height = TRUNK:getHeight()
 
     self.x = VIRT_WIDTH -- to spawn right next to the opening screen
-    self.y = math.random(VIRT_HEIGHT - self.height/4, VIRT_HEIGHT - 3*self.height/4)
+    self.y = y
+
+    self.orientation = orientation
 end
 
 --[[
@@ -36,5 +38,7 @@ end
     Render trunk
 ]]
 function Trunk:draw()
-    love.graphics.draw(TRUNK_DOWN, self.x, self.y)
+    love.graphics.draw(TRUNK, self.x,
+        (self.orientation == 'upside' and self.y + TRUNK_HEIGHT or self.y), 
+        0, 1, self.orientation == 'upside' and -1 or 1)
 end

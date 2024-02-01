@@ -6,6 +6,10 @@ Bird = class{}
 
 GRAVITY = 20
 
+OFFSET_TRUNK_HITBOX = 12
+OFFSET_BIRD_HITBOX = 5
+-- because the image has transparent pixels that should not be collided
+
 --[[
     ----   Methods   ----
 ]]
@@ -23,7 +27,9 @@ function Bird:init()
     self.y = VIRT_HEIGHT/2 - self.height/2
 
     self.dy = 0
+
 end
+
 
 --[[
     Render bird
@@ -31,6 +37,7 @@ end
 function Bird:draw()
     love.graphics.draw(self.img, self.x, self.y)
 end
+
 
 --[[
     Update bird
@@ -40,7 +47,7 @@ function Bird:update(dt)
     self.dy = self.dy + GRAVITY * dt
 
     if love.keyboard.wasPressed('space') then
-        self.dy = - 6
+        self.dy = - 5
     end
 
     -- calc position reggarding new velocity
@@ -49,4 +56,36 @@ function Bird:update(dt)
     else
         self.y = math.max(self.y + self.dy, 10)
     end
+end
+
+
+--[[
+    Checks whether the bird is colliding with a trunk
+]]
+function Bird:collides(trunk)
+    
+    if  self.x + self.width - OFFSET_BIRD_HITBOX >= trunk.x + OFFSET_TRUNK_HITBOX and
+        self.x <= trunk.x + TRUNK_WIDTH - OFFSET_TRUNK_HITBOX
+        and
+        ((trunk.orientation == 'upside' and
+        self.y <= trunk.y + TRUNK_HEIGHT)
+        or
+        (trunk.orientation == 'downside' and
+        self.y + self.height >= trunk.y))
+        then
+            return true
+        end
+
+    return false
+end
+
+
+--[[
+    Place bird back in the middle of the screen
+]]
+function Bird:reset()
+    self.x = VIRT_WIDTH/2 - self.width/2
+    self.y = VIRT_HEIGHT/2 - self.height/2
+
+    self.dy = 0
 end
