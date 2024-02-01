@@ -13,7 +13,9 @@ Retro-aesthetic Pong as the classic videogame.
 
 | ![img](img/pong1.png)|![img](img/pong2.png) |
 |---|---|
-| ![img](img/pong3.png) | ![img](img/pong4.png) |  
+
+| ![img](img/pong3.png) |
+| -- |  
 
 
 ### Assignment: AI-controlled paddles
@@ -21,3 +23,14 @@ Retro-aesthetic Pong as the classic videogame.
 The challenge is to implement a basic AI-controlled paddle such that both paddles will try to deflect the ball at all times. The script is implemented in the `src/main_task.lua` file.
 
 ## 2. Flappy Bird
+
+My version of Flappy Bird, **Dizzy Bird**
+
+| ![img](img/dizzybird1.png)|![img](img/dizzybird2.png) |
+|---|---|
+
+
+## TODO
+- Add score and highscore
+- Add countdown state
+- Add audio
