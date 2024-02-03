@@ -21,22 +21,29 @@ function ScoreState:draw()
     love.graphics.setColor(0, 0, 0) 
     for i=-1,1 do
         for j=-1,1 do
-            love.graphics.printf('You lost!', 0+i, 64+j, VIRT_WIDTH, 'center')
+            love.graphics.printf('You lost!', -75+i, 64+j, VIRT_WIDTH, 'center')
         end
     end
     love.graphics.setColor(1, 1, 1) 
-    love.graphics.printf('You lost!', 0, 64, VIRT_WIDTH, 'center')
+    love.graphics.printf('You lost!', -75, 64, VIRT_WIDTH, 'center')
 
     love.graphics.setFont(FONT_MID_SIZE)
     love.graphics.setColor(0, 0, 0) 
     for i=-1,1 do
         for j=-1,1 do
-            love.graphics.printf('Score: ' .. tostring(self.score), 0+i, 100+j, VIRT_WIDTH, 'center')
+            love.graphics.printf('Score: ' .. tostring(self.score), -75+i, 100+j, VIRT_WIDTH, 'center')
         end
     end
     love.graphics.setColor(1, 1, 1) 
-    love.graphics.printf('Score: ' .. tostring(self.score), 0, 100, VIRT_WIDTH, 'center')
+    love.graphics.printf('Score: ' .. tostring(self.score), -75, 100, VIRT_WIDTH, 'center')
 
+    if self.score > 15 then 
+        love.graphics.draw(GOLD_AWARD, VIRT_WIDTH/2 + 50, 60)
+    elseif self.score > 7 then
+        love.graphics.draw(SILVER_AWARD, VIRT_WIDTH/2 + 50, 60)
+    else
+        love.graphics.draw(BRONZE_AWARD, VIRT_WIDTH/2 + 50, 60)
+    end
     love.graphics.setColor(0, 0, 0) 
     for i=-1,1 do
         for j=-1,1 do

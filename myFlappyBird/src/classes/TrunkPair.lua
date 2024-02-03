@@ -4,7 +4,7 @@
 
 TrunkPair = class{}
 
-GAP_HEIGHT = math.random(75, 95)
+GAP_HEIGHT = math.random(85, 110)
 
 --[[
     ----   Methods   ----
@@ -30,7 +30,7 @@ end
 
 function TrunkPair:update(dt)
 
-    GAP_HEIGHT = math.random(75, 95)
+    GAP_HEIGHT = math.random(85, 110)
 
     if self.x + TRUNK_WIDTH < 0 then
         self.erase = true

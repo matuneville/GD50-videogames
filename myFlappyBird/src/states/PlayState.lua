@@ -17,6 +17,9 @@ function PlayState:init()
     -- initialize our last recorded Y value for a gap placement to base other gaps off of
     self.last_y = 0 - TRUNK_HEIGHT + math.random(30, VIRT_HEIGHT - GAP_HEIGHT - 50) 
 
+    -- time to generate new pair of trunks
+    self.time_to_trunk = math.random(1, 3)
+
     -- initialize score
     self.score = 0
 end
@@ -29,7 +32,7 @@ function PlayState:update(dt)
     self.bird:update(dt)
 
     -- spawn a new trunk if necessary
-    if self.timer > 2 then
+    if self.timer > self.time_to_trunk then
 
         local y = math.max(0 - TRUNK_HEIGHT + 30,
                     math.min(VIRT_HEIGHT - TRUNK_HEIGHT - GAP_HEIGHT - 40 , self.last_y + math.random(-60,60)))
@@ -37,7 +40,8 @@ function PlayState:update(dt)
         table.insert(self.trunks_pairs, TrunkPair(y))
         self.last_y = y
 
-        self.timer = 0
+        self.timer = 0 -- reset timer
+        self.time_to_trunk = math.random(1, 2.5) -- new random time til next trunks
     end
 
     -- for every pair of pipes..

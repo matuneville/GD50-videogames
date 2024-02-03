@@ -21,6 +21,9 @@ VIRT_HEIGHT = 288
 --
 BIRD = love.graphics.newImage('assets/bird.png')
 TRUNK = love.graphics.newImage('assets/trunk.png')
+GOLD_AWARD = love.graphics.newImage('assets/gold.png')
+SILVER_AWARD = love.graphics.newImage('assets/silver.png')
+BRONZE_AWARD = love.graphics.newImage('assets/bronze.png')
 TRUNK_HEIGHT = TRUNK:getHeight()
 TRUNK_WIDTH = TRUNK:getWidth()
 
