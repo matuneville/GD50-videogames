@@ -52,3 +52,5 @@ Interesting topics covered by the lecture:
 - Randomize the trunk pair spawn interval. Trunk pairs should spawn a random interval of few seconds apart.
 - Award a “medal” in the ScoreState: Different trophies based on the points scored that life. Choose 3 different ones, as well as the minimum score needed for each.
 - Implement a pause feature: The user can press “P” to pause the game state, and then it again to resume the game. The music should pause
+
+## 3. Breakout
