@@ -9,14 +9,21 @@ It contains the recreated videogames of each lecture with a personal style, and 
 
 ## 1. Pong
 
-Retro-aesthetic Pong as the classic videogame.  
+Retro-aesthetic **Pong** as the classic videogame.  
 
-| ![img](img/pong1.png)|![img](img/pong2.png) |
+| ![img](myPong/img/pong1.png)|![img](myPong/img/pong2.png) |
 |---|---|
 
-| ![img](img/pong3.png) |
+| ![img](myPong/img/pong3.png) |
 | -- |  
 
+Interesting topics covered by the lecture:
+- DeltaTime and Velocity
+- OOP
+- Hitboxes (box collision)
+- Game state
+- Drawing shapes and text
+- Sound effects 
 
 ### Assignment: AI-controlled paddles
 
@@ -26,5 +33,22 @@ The challenge is to implement a basic AI-controlled paddle such that both paddle
 
 My version of Flappy Bird, **Dizzy Bird**
 
-| ![img](img/dizzybird1.png)|![img](img/dizzybird2.png) |
+| ![img](myFlappyBird/img/dizzyBird1.png)|![img](myFlappyBird/img/dizzyBird3.png) |
 |---|---|
+
+| ![img](myFlappyBird/img/dizzyBird2.png) |
+|--|
+
+Interesting topics covered by the lecture:
+- Procedural generation
+- Infinite scrolling
+- Usage of sprites
+- State Machine
+- Simple physics
+
+### Assignment: Randomness, award and Pause
+
+- Randomize the gap between trunks, so the distance between each both obstacles is not hardcoded
+- Randomize the trunk pair spawn interval. Trunk pairs should spawn a random interval of few seconds apart.
+- Award a “medal” in the ScoreState: Different trophies based on the points scored that life. Choose 3 different ones, as well as the minimum score needed for each.
+- Implement a pause feature: The user can press “P” to pause the game state, and then it again to resume the game. The music should pause
