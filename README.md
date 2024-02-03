@@ -33,11 +33,11 @@ The challenge is to implement a basic AI-controlled paddle such that both paddle
 
 My version of Flappy Bird, **Dizzy Bird**
 
-| ![img](myFlappyBird/img/dizzyBird1.png)|![img](myFlappyBird/img/dizzyBird3.png) |
+| ![img](myFlappyBird/img/dizzyBird1.png)|![img](myFlappyBird/img/dizzyBird2.png) |
 |---|---|
 
-| ![img](myFlappyBird/img/dizzyBird2.png) |
-|--|
+| ![img](myFlappyBird/img/dizzyBird3.png) | ![img](myFlappyBird/img/dizzyBird4.png) |
+|--| -- |
 
 Interesting topics covered by the lecture:
 - Procedural generation
