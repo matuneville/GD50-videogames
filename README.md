@@ -28,9 +28,3 @@ My version of Flappy Bird, **Dizzy Bird**
 
 | ![img](img/dizzybird1.png)|![img](img/dizzybird2.png) |
 |---|---|
-
-
-## TODO
-- Add score and highscore
-- Add countdown state
-- Add audio
