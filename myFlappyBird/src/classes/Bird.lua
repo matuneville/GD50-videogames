@@ -47,15 +47,12 @@ function Bird:update(dt)
     self.dy = self.dy + GRAVITY * dt
 
     if love.keyboard.wasPressed('space') then
+        sounds['jump']:play()
         self.dy = - 5
     end
 
     -- calc position reggarding new velocity
-    if self.dy >= 0 then
-        self.y = math.min(self.y + self.dy, VIRT_HEIGHT-GROUND_HEIGHT-self.height+2)
-    else
-        self.y = math.max(self.y + self.dy, 10)
-    end
+    self.y = math.max(self.y + self.dy, 10)
 end
 
 

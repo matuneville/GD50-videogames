@@ -31,10 +31,6 @@ require 'classes.Bird'
 require 'classes.Trunk'
 require 'classes.TrunkPair'
 
--- Bird instance for different states
---
-bird = Bird()
-
 -- Include code and classes for state machine
 --
 require 'classes.StateMachine'
@@ -69,15 +65,34 @@ function love.load()
 
     -- initialize fonts
     FONT_FPS = love.graphics.newFont('assets/font_console.ttf', 8)
-    FONT_MID_SIZE = love.graphics.newFont('assets/font_console.ttf', 16)
-    FONT_TITLE = love.graphics.newFont('assets/font_title.ttf', 32)
+    FONT_MID_SIZE = love.graphics.newFont('assets/flappy.ttf', 16)
+    FONT_SCORE = love.graphics.newFont('assets/flappy.ttf', 32)
+    FONT_TITLE = love.graphics.newFont('assets/flappy.ttf', 64)
 
     -- initialize state machine with all state-returning functions
     gStateMachine = StateMachine {
         ['title'] = function() return TitleScreenState() end,
         ['play'] = function() return PlayState() end,
-        ['score'] = function() return ScoreState() end
+        ['score'] = function() return ScoreState() end,
+        ['countdown'] = function () return CountdownState(3) end
     }
+
+    -- initialize sound effects
+    sounds = {
+        ['jump'] = love.audio.newSource('assets/jump.wav', 'static'),
+        ['score'] = love.audio.newSource('assets/score.wav', 'static'),
+        ['explosion'] = love.audio.newSource('assets/explosion.wav', 'static'),
+        ['count'] = love.audio.newSource('assets/count.wav', 'static'),
+        ['start'] = love.audio.newSource('assets/start.wav', 'static'),
+
+
+        ['music'] = love.audio.newSource('assets/bg_music.wav', 'static') -- free to use music
+    }
+
+    -- loop background music
+    sounds['music']:setVolume(0.33)
+    sounds['music']:setLooping(true)
+    sounds['music']:play()
 
     -- start with title screen
     gStateMachine:change('title')

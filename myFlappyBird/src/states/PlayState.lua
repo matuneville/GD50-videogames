@@ -10,12 +10,15 @@ PlayState = class{__includes = BaseState} -- inheritance of BaseState
 
 
 function PlayState:init()
-    self.bird = bird
+    self.bird = Bird()
     self.trunks_pairs = {}
     self.timer = 0
 
     -- initialize our last recorded Y value for a gap placement to base other gaps off of
     self.last_y = 0 - TRUNK_HEIGHT + math.random(30, VIRT_HEIGHT - GAP_HEIGHT - 50) 
+
+    -- initialize score
+    self.score = 0
 end
 
 function PlayState:update(dt)
@@ -44,9 +47,20 @@ function PlayState:update(dt)
 
         if self.bird:collides(pair.trunks['upside']) or
         self.bird:collides(pair.trunks['downside']) then
-            bird:reset()
-            gStateMachine:change('title')
+            sounds['explosion']:play()
+            self.bird:reset()
+            gStateMachine:change('score', {score = self.score})
         end
+
+        -- add 1 if scored
+        if not pair.scored then
+            if pair.x + TRUNK_WIDTH - OFFSET_TRUNK_HITBOX < self.bird.x then
+                self.score = self.score + 1
+                sounds['score']:play()
+                pair.scored = true
+            end
+        end
+
     end
 
     --[[ we need this second loop, rather than deleting in the previous loop, because
@@ -60,8 +74,10 @@ function PlayState:update(dt)
     end
 
     -- reset if bird touches ground
-    if self.bird.y >= VIRT_HEIGHT - GROUND_HEIGHT then
-        gStateMachine:change('title')
+    if self.bird.y + self.bird.height - 2 >= VIRT_HEIGHT - GROUND_HEIGHT then
+        sounds['explosion']:play()
+        self.bird:reset()
+        gStateMachine:change('score', {score = self.score})
     end
 end
 
@@ -71,5 +87,15 @@ function PlayState:draw()
     end
 
     self.bird:draw()
+
+    love.graphics.setFont(FONT_MID_SIZE)
+    love.graphics.setColor(0,0,0)
+    for i=-1, 1 do
+        for j=-1, 1 do
+            love.graphics.printf('Score: ' .. self.score, 20+i, 20+j, VIRT_WIDTH, 'left')
+        end
+    end
+    love.graphics.setColor(1,1,1)
+    love.graphics.printf('Score: ' .. self.score, 20, 20, VIRT_WIDTH, 'left')
 end
 

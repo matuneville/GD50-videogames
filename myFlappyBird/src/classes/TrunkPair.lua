@@ -22,6 +22,9 @@ function TrunkPair:init(y)
 
     -- check if the trunks are ready to erase
     self.erase = false
+
+    -- check if the bird passed through it
+    self.scored = false
 end
 
 
