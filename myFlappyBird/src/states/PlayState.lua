@@ -25,6 +25,7 @@ function PlayState:init()
 end
 
 function PlayState:update(dt)
+
     -- update timer for trunk spawning
     self.timer = self.timer + dt
 
@@ -53,7 +54,7 @@ function PlayState:update(dt)
         self.bird:collides(pair.trunks['downside']) then
             sounds['explosion']:play()
             self.bird:reset()
-            gStateMachine:change('score', {score = self.score})
+            gStateMachine:change('score', {score = self.score, bird = self.bird})
         end
 
         -- add 1 if scored
@@ -81,7 +82,7 @@ function PlayState:update(dt)
     if self.bird.y + self.bird.height - 2 >= VIRT_HEIGHT - GROUND_HEIGHT then
         sounds['explosion']:play()
         self.bird:reset()
-        gStateMachine:change('score', {score = self.score})
+        gStateMachine:change('score', {score = self.score, bird = self.bird})
     end
 end
 

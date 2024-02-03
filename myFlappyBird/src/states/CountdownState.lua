@@ -2,6 +2,11 @@ CountdownState = class{__includes = BaseState}
 
 COUNTDOWN_TIME = 0.70
 
+function CountdownState:enter(params)
+    self.score = params.score
+    self.bird = params.bird
+end
+
 function CountdownState:init(n)
     self.called = false
     self.count = n
@@ -41,6 +46,9 @@ function CountdownState:draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.printf(self.count, 0, VIRT_HEIGHT/2 - 80 , VIRT_WIDTH, 'center')
 
-    -- draw bird static
-    love.graphics.draw(BIRD, VIRT_WIDTH/2 - BIRD:getWidth()/2, VIRT_HEIGHT/2 - BIRD:getHeight()/2)
+    if not self.bird == nil then
+        self.bird:draw()
+    else
+        love.graphics.draw(BIRD, VIRT_WIDTH/2 - BIRD:getWidth()/2, VIRT_HEIGHT/2 - BIRD:getHeight()/2)
+    end
 end

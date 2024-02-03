@@ -8,9 +8,8 @@
 TitleScreenState = class{__includes = BaseState} -- inherit BaseState methods
 
 function TitleScreenState:update(dt)
-    print("State: title screen")
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-        gStateMachine:change('countdown')
+        gStateMachine:change('countdown', {score = 0, bird = nil})
     end
 end
 

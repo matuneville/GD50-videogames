@@ -104,7 +104,6 @@ end
 
 function love.update(dt)
 
-    -- it should always be displayed, in any state
     update_background(dt)
 
     -- the state machine leads it to the right update method, of current state
