@@ -40,9 +40,12 @@ function ScoreState:draw()
     love.graphics.setColor(0, 0, 0) 
     for i=-1,1 do
         for j=-1,1 do
-            love.graphics.printf('Press Enter to play again', 0+i, 160+j, VIRT_WIDTH, 'center')
+            love.graphics.printf('Press Enter to play again', 0+i, 170+j, VIRT_WIDTH, 'center')
         end
     end
     love.graphics.setColor(1, 1, 1) 
-    love.graphics.printf('Press Enter to play again', 0, 160, VIRT_WIDTH, 'center')
+    love.graphics.printf('Press Enter to play again', 0, 170, VIRT_WIDTH, 'center')
+
+    -- draw bird static
+    love.graphics.draw(BIRD, VIRT_WIDTH/2 - BIRD:getWidth()/2, VIRT_HEIGHT/2 - BIRD:getHeight()/2)
 end
