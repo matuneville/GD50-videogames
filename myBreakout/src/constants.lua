@@ -10,8 +10,8 @@
 
 
 -- Window dimensions
-WIND_HEIGHT = 1280
-WIND_WIDTH = 720
+WIND_WIDTH = 1280
+WIND_HEIGHT = 720
 
 -- Virtual dimensions, emulated with push library
 VIRT_WIDTH = 432
