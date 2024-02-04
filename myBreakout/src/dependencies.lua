@@ -24,7 +24,14 @@ Class = require 'lib/class'
 ]]
 
 require 'src/constants'
+require 'src/utilities'
 
 require 'src/classes/StateMachine'
 require 'src/states/BaseState'
 require 'src/states/StartScreenState'
+require 'src/states/PlayState'
+
+print('Dependencies loaded!')
+
+require 'src/classes/Paddle'
+

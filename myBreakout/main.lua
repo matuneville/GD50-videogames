@@ -8,9 +8,10 @@
     - 2024
 ]]
 
-require 'src.dependencies'
+require 'src/dependencies'
 
 function love.load()
+
     -- all graphics configurations
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setTitle('Breakout')
@@ -23,20 +24,33 @@ function love.load()
     -- gen random seed
     math.randomseed(os.time())
 
-    -- initialize state machine and set up to start on screen state
-    gStateMachine = StateMachine({
-        ['start'] = function() return StartScreenState() end
-    })
-    gStateMachine:change('start')
-
-    -- initialize textures and sounds
+    -- initialize assets: textures, sounds and fonts
     gTextures = {
-        ['menu_bg'] = love.graphics.newImage('assets/textures/menu_bg.png')
+        ['menu_bg'] = love.graphics.newImage('assets/textures/menu_bg.png'),
+        ['blocks'] = love.graphics.newImage('assets/textures/blocks.png')
     }
     
-    gSounds = {
-        --['menu_move'] = love.audio.newSource('assets/sounds/menu_move.wav', 'static'),
+    gSounds = { -- download sounds with gain = -18 dB so they sound low
+        ['menu_move'] = love.audio.newSource('assets/sounds/menu_move.wav', 'static'),
+        ['menu_select'] = love.audio.newSource('assets/sounds/menu_select.wav', 'static')
     }
+
+    gFonts = {
+        ['title'] = love.graphics.newFont('assets/fonts/Vermin1989.ttf', 48),
+        ['mid'] = love.graphics.newFont('assets/fonts/Vermin1989.ttf', 16)
+    }
+
+    -- Quads for our textures, that allow us to show only part of a texture
+    gFrames = {
+        ['paddles'] = GenerateQuadsPaddles(gTextures['blocks'])
+    }
+
+    -- initialize state machine and set up to start on screen state
+    gStateMachine = StateMachine({
+        ['start'] = function() return StartScreenState() end,
+        ['play'] = function() return PlayState() end,
+    })
+    gStateMachine:change('start')
 
     -- table to check key pressed in current frame
     love.keyboard.keysPressed = {}
@@ -61,28 +75,3 @@ function love:draw()
     Push:apply('end')
 end
 
---[[
-    Custom functions
-]]
-
--- Indicates if key was pressed in the current frame
-function love.keyboard.wasPressed(key)
-    if love.keyboard.keysPressed[key] then
-        return true
-    else
-        return false
-    end
-end
-
--- Prints text with black border
-function love.graphics.printWithBorder(str, x, y, limit, align, stroke, color)
-    love.graphics.setColor(0,0,0,1)
-    for i=-stroke, stroke do
-        for j=-stroke, stroke do
-            love.graphics.printf(str, x+i, y+j, limit, align)
-        end
-    end
-
-    love.graphics.setColor(color)
-    love.graphics.printf(str, x, y, limit, align)
-end

@@ -16,3 +16,6 @@ WIND_HEIGHT = 720
 -- Virtual dimensions, emulated with push library
 VIRT_WIDTH = 432
 VIRT_HEIGHT = 243
+
+-- Player's velocity
+PADDLE_SPEED = 180
