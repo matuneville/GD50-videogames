@@ -1,4 +1,4 @@
-# CS50 Game Development Course 🕹️🎮
+# GD50: 2D Videogames 🕹️👾🎮
 
 My work on the first part of [**CS50's Introduction to Game Development**](https://www.edx.org/learn/game-development/harvard-university-cs50-s-introduction-to-game-development) course, offered by Harvard University. This section is about 2D videogames.  
 
