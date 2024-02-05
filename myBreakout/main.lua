@@ -27,12 +27,16 @@ function love.load()
     -- initialize assets: textures, sounds and fonts
     gTextures = {
         ['menu_bg'] = love.graphics.newImage('assets/textures/menu_bg.png'),
+        ['play_bg'] = love.graphics.newImage('assets/textures/play_bg.png'),
         ['blocks'] = love.graphics.newImage('assets/textures/blocks.png')
     }
     
     gSounds = { -- download sounds with gain = -18 dB so they sound low
         ['menu_move'] = love.audio.newSource('assets/sounds/menu_move.wav', 'static'),
-        ['menu_select'] = love.audio.newSource('assets/sounds/menu_select.wav', 'static')
+        ['menu_select'] = love.audio.newSource('assets/sounds/menu_select.wav', 'static'),
+        ['wall_hit'] = love.audio.newSource('assets/sounds/wall_hit.wav', 'static'),
+        ['paddle_hit'] = love.audio.newSource('assets/sounds/paddle_hit.wav', 'static'),
+        ['brick_break'] = love.audio.newSource('assets/sounds/brick_break.wav', 'static'),
     }
 
     gFonts = {
@@ -42,7 +46,9 @@ function love.load()
 
     -- Quads for our textures, that allow us to show only part of a texture
     gFrames = {
-        ['paddles'] = GenerateQuadsPaddles(gTextures['blocks'])
+        ['paddles'] = generateQuadsPaddles(gTextures['blocks']),
+        ['balls'] = generateQuadsBalls(gTextures['blocks']),
+        ['bricks'] = generateQuadsBricks(gTextures['blocks']),
     }
 
     -- initialize state machine and set up to start on screen state

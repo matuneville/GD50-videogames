@@ -35,7 +35,7 @@ function StartScreenState:update(dt)
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
         self.option_highlighted = self.option_highlighted == 1
             and gStateMachine:change('play')
-            or gStateMachine:change('highscores')
+            --or gStateMachine:change('highscores')
         gSounds['menu_select']:play()
     end
 
@@ -48,7 +48,7 @@ function StartScreenState:render()
         0, -- no rotation
         VIRT_WIDTH / gTextures['menu_bg']:getWidth(), -- adapt size
         VIRT_HEIGHT / gTextures['menu_bg']:getHeight())
-    love.graphics.setColor(0, 0, 0.3, 0.3)
+    love.graphics.setColor(0, 0, 0, 0.2)
     love.graphics.rectangle('fill', 0, 0, VIRT_WIDTH, VIRT_HEIGHT)
 
     -- print game title

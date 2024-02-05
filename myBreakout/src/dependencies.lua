@@ -34,4 +34,7 @@ require 'src/states/PlayState'
 print('Dependencies loaded!')
 
 require 'src/classes/Paddle'
+require 'src/classes/Ball'
+require 'src/classes/Brick'
+require 'src/classes/LevelMaker'
 

@@ -43,6 +43,19 @@ function love.graphics.printWithBorder(text, x, y, limit, align, stroke, color1,
 end
 
 
+-- Custom function for slicing tables, returns only a segment selected
+-- between params first and last, jumping as steps
+function table.slice(table, first, last, step)
+    local sliced = {}
+  
+    for i = first or 1, last or #table, step or 1 do
+      sliced[#sliced+1] = table[i]
+    end
+  
+    return sliced
+end
+
+
 -- ######################################################################
 -- ######################################################################
 
@@ -53,7 +66,7 @@ end
 -- Function that, given an atlas (sprites sheet) and the
 -- required dimensions for each sprite, returns a table with
 -- all the tiles separated as Quads (a quadrilateral)
-function GenerateQuads(atlas, tileWidth, tileHeight)
+function generateQuads(atlas, tileWidth, tileHeight)
     -- to return the gathered sprites
     local quadsTable = {}
     local spritesCounter = 1
@@ -76,20 +89,9 @@ function GenerateQuads(atlas, tileWidth, tileHeight)
     return quadsTable
 end
 
--- Custom function for slicing tables, returns only a segment selected
--- between params first and last, jumping as steps
-function table.slice(table, first, last, step)
-    local sliced = {}
-  
-    for i = first or 1, last or #table, step or 1 do
-      sliced[#sliced+1] = table[i]
-    end
-  
-    return sliced
-end
 
 -- Function to return the Breakout paddle quads from 'blocks.png'
-function GenerateQuadsPaddles(atlas)
+function generateQuadsPaddles(atlas)
     -- to store and return
     local paddleQuads = {}
     local counter = 1
@@ -128,4 +130,66 @@ function GenerateQuadsPaddles(atlas)
     return paddleQuads
 end
 
+
+function generateQuadsBalls(atlas)
+    -- to store and return
+    local ballQuads = {}
+    local counter = 1
+
+    local tileWidth = (atlas:getWidth() / 6) / 4
+    local tileHeight = (atlas:getHeight() / 12) / 2
+
+    local x = (tileWidth*4)*3
+    local y = (tileHeight*2)*3
+
+    -- first select 6 balls and then the last one
+    -- as the quantity of balls is not even T_T
+    for i=0, 2, 1 do
+        ballQuads[counter] = love.graphics.newQuad(x, y, tileWidth, tileHeight, atlas:getDimensions())
+        counter = counter+1
+
+        ballQuads[counter] = love.graphics.newQuad(x, y+tileHeight, tileWidth, tileHeight, atlas:getDimensions())
+        counter = counter+1
+
+        x = x + tileWidth
+    end
+    ballQuads[counter] = love.graphics.newQuad(x, y, tileWidth, tileHeight, atlas:getDimensions())
+
+    return ballQuads
+end
+
+
+function generateQuadsBricks(atlas)
+    -- to store and return
+    local brickQuads = {}
+    local counter = 1
+
+    local tileWidth = atlas:getWidth() / 6
+    local tileHeight = atlas:getHeight() / 12
+
+    local x = 0
+    local y = 0
+
+
+    for i=0, 5, 1 do
+        brickQuads[counter] = love.graphics.newQuad(x, y, tileWidth, tileHeight, atlas:getDimensions())
+        counter = counter+1
+
+        brickQuads[counter] = love.graphics.newQuad(x, y+tileHeight, tileWidth, tileHeight, atlas:getDimensions())
+        counter = counter+1
+
+        brickQuads[counter] = love.graphics.newQuad(x, y+2*tileHeight, tileWidth, tileHeight, atlas:getDimensions())
+        counter = counter+1
+
+        if i <= 3 then
+            brickQuads[counter] = love.graphics.newQuad(x, y+3*tileHeight, tileWidth, tileHeight,
+                atlas:getDimensions())
+            counter = counter+1
+        end
+
+        x = x + tileWidth
+    end
+
+    return brickQuads
+end
 

@@ -17,5 +17,6 @@ WIND_HEIGHT = 720
 VIRT_WIDTH = 432
 VIRT_HEIGHT = 243
 
--- Player's velocity
+-- Player's and ball velocities
 PADDLE_SPEED = 180
+BALL_SPEED = 150

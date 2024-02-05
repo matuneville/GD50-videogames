@@ -16,26 +16,27 @@ Paddle = Class()
 ]]
 
 -- Constructor
-function Paddle:init()
+function Paddle:init(skin)
     -- had to define these two variables here because if done it
     -- in the outer code, it was loaded before the love.load() at main
     -- and gTextures wasn't initializated
     local tileWidth = gTextures['blocks']:getWidth() / 6
     local tileHeight = gTextures['blocks']:getHeight() / 12
 
+    -- 1: small, 2: median, 3: big, 4: huge
+    self.size = 2
+
+    -- 1: blue, 2: green, 3: red, 4: purple
+    self.skin = skin
+    
     -- starting dimensions
-    self.width = 2*tileWidth
-    self.height = 1*tileHeight
+    self.width = self.size*tileWidth
+    self.height = tileHeight/2
 
     self.x = VIRT_WIDTH / 2 - self.width / 2
     self.y = VIRT_HEIGHT - 16 - self.height
 
     self.dx = PADDLE_SPEED
-
-    -- start with middle paddle of the first color
-    self.size = 2
-
-    self.skin = 1
 end
 
 
@@ -56,7 +57,7 @@ end
 function Paddle:render()
     love.graphics.draw(gTextures['blocks'], -- drawable
                        -- quad, we jump 4 skins so we see the same size skin of next color
-                       gFrames['paddles'][self.skin+4*(self.skin-1)], 
+                       gFrames['paddles'][self.size+4*(self.skin-1)], 
                        self.x, -- coords
                        self.y)
 end
