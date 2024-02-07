@@ -20,3 +20,5 @@ VIRT_HEIGHT = 243
 -- Player's and ball velocities
 PADDLE_SPEED = 180
 BALL_SPEED = 150
+
+HEALTHS = 1

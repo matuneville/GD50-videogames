@@ -31,9 +31,13 @@ function Ball:init(skin)
     self.x = VIRT_WIDTH/2 - self.width/2
     self.y = 100
 
-    -- initialize ball still
-    self.dx = -70
-    self.dy = -70
+    -- velocity constant
+    self.v = 150
+
+    self.dx = 0
+    self.dy = -1 * self.v
+
+    
 end
 
 
@@ -57,6 +61,7 @@ function Ball:update(dt)
 
     -- bounce on ceiling
     if self.y < 0 then
+        self.y = 0
         self.dy = -self.dy
         gSounds['wall_hit']:play()
     end
@@ -90,11 +95,20 @@ function Ball:isColliding(target)
 end
 
 
--- Place ball back in the center of the screen
+-- Place ball back in the center of the paddle
 --
 function Ball:reset()
-    self.x = VIRT_WIDTH / 2 - self.width/2
-    self.y = VIRT_HEIGHT / 2 - self.height/2
+    self.ball.x = self.paddle.x + (self.paddle.width / 2) - self.ball.width/2
+    self.ball.y = self.paddle.y - self.ball.height
     self.dx = 0
     self.dy = 0
+end
+
+
+function Ball:normalize()
+    local magnitude = math.sqrt(self.dx^2 + self.dy^2)
+    if magnitude > 0 then
+        self.dx = (self.dx / magnitude)*self.v
+        self.dy = (self.dy / magnitude)*self.v
+    end
 end

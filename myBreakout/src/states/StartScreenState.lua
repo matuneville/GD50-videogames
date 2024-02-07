@@ -33,10 +33,18 @@ function StartScreenState:update(dt)
 
     -- enter the selected option
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-        self.option_highlighted = self.option_highlighted == 1
-            and gStateMachine:change('play')
+        if self.option_highlighted == 1 then
+
+            gStateMachine:change('serve', {
+                paddle = Paddle(1),
+                bricks = LevelMaker.createMap(1000),
+                health = HEALTHS,
+                score = 0
+            })
+            
             --or gStateMachine:change('highscores')
-        gSounds['menu_select']:play()
+            gSounds['menu_select']:play()
+        end
     end
 
 end

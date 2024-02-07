@@ -31,14 +31,14 @@ end
 ---@param color1 table Inner color of the text font, in format {R,G,B}
 ---@param color2 table Color of the border of the text, in format {R,G,B}
 function love.graphics.printWithBorder(text, x, y, limit, align, stroke, color1, color2)
-    love.graphics.setColor(color2)
+    love.graphics.setColor(color2 or {0,0,0})
     for i=-stroke, stroke do
         for j=-stroke, stroke do
             love.graphics.printf(text, x+i, y+j, limit, align)
         end
     end
 
-    love.graphics.setColor(color1)
+    love.graphics.setColor(color1 or {1,1,1})
     love.graphics.printf(text, x, y, limit, align)
 end
 
@@ -56,6 +56,29 @@ function table.slice(table, first, last, step)
 end
 
 
+-- Render lifes
+function renderLifes(totalLifes, remainingLifes)
+    for i = 1, totalLifes, 1 do
+        if remainingLifes > 0 then
+            love.graphics.draw(gTextures['hearts'],
+                               gFrames['heart'][1],
+                               VIRT_WIDTH - i*11 - 5,
+                               5)
+            remainingLifes = remainingLifes - 1
+        else
+            love.graphics.draw(gTextures['hearts'],
+                               gFrames['heart'][2],
+                               VIRT_WIDTH - i*11-5,
+                               5)
+        end
+    end
+end 
+
+function renderScore(score)
+    love.graphics.setFont(gFonts['small'])
+    love.graphics.printWithBorder('Score: '.. tostring(score), 5, 5, VIRT_WIDTH, 'left', 1, {1,1,1,1},{0,0,0,1})
+end
+
 -- ######################################################################
 -- ######################################################################
 
@@ -67,26 +90,22 @@ end
 -- required dimensions for each sprite, returns a table with
 -- all the tiles separated as Quads (a quadrilateral)
 function generateQuads(atlas, tileWidth, tileHeight)
-    -- to return the gathered sprites
-    local quadsTable = {}
-    local spritesCounter = 1
-
-    -- dimensions measured in tiles
     local sheetWidth = atlas:getWidth() / tileWidth
     local sheetHeight = atlas:getHeight() / tileHeight
 
-    for i=1, sheetWidth, 1 do
-        for j=1, sheetHeight, 1 do
-            -- get sprite tile
-            local sprite = love.graphics.newQuad(i * tileWidth, j * tileHeight,
-                tileWidth, tileHeight, atlas:getDimensions())
-            -- add it to table
-            quadsTable[spritesCounter] = sprite
-            spritesCounter = spritesCounter + 1
+    local sheetCounter = 1
+    local spritesheet = {}
+
+    for y = 0, sheetHeight - 1 do
+        for x = 0, sheetWidth - 1 do
+            spritesheet[sheetCounter] =
+                love.graphics.newQuad(x * tileWidth, y * tileHeight, tileWidth,
+                tileHeight, atlas:getDimensions())
+            sheetCounter = sheetCounter + 1
         end
     end
 
-    return quadsTable
+    return spritesheet
 end
 
 

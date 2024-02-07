@@ -37,6 +37,7 @@ end
 function Brick:hit()
     --gSounds['brick-hit-2']:play()
     self.inPlay = false
+    gSounds['brick_break']:play()
 end
 
 

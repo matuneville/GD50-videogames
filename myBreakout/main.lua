@@ -28,7 +28,8 @@ function love.load()
     gTextures = {
         ['menu_bg'] = love.graphics.newImage('assets/textures/menu_bg.png'),
         ['play_bg'] = love.graphics.newImage('assets/textures/play_bg.png'),
-        ['blocks'] = love.graphics.newImage('assets/textures/blocks.png')
+        ['blocks'] = love.graphics.newImage('assets/textures/blocks.png'),
+        ['hearts'] = love.graphics.newImage('assets/textures/hearts.png'),
     }
     
     gSounds = { -- download sounds with gain = -18 dB so they sound low
@@ -37,11 +38,14 @@ function love.load()
         ['wall_hit'] = love.audio.newSource('assets/sounds/wall_hit.wav', 'static'),
         ['paddle_hit'] = love.audio.newSource('assets/sounds/paddle_hit.wav', 'static'),
         ['brick_break'] = love.audio.newSource('assets/sounds/brick_break.wav', 'static'),
+        ['lost_ball'] = love.audio.newSource('assets/sounds/lost_ball.wav', 'static'),
     }
 
     gFonts = {
         ['title'] = love.graphics.newFont('assets/fonts/Vermin1989.ttf', 48),
-        ['mid'] = love.graphics.newFont('assets/fonts/Vermin1989.ttf', 16)
+        ['big'] = love.graphics.newFont('assets/fonts/Vermin1989.ttf', 32),
+        ['mid'] = love.graphics.newFont('assets/fonts/8-bit.ttf', 10),
+        ['small'] = love.graphics.newFont('assets/fonts/8-bit.ttf', 5),
     }
 
     -- Quads for our textures, that allow us to show only part of a texture
@@ -49,12 +53,17 @@ function love.load()
         ['paddles'] = generateQuadsPaddles(gTextures['blocks']),
         ['balls'] = generateQuadsBalls(gTextures['blocks']),
         ['bricks'] = generateQuadsBricks(gTextures['blocks']),
+        ['heart'] = generateQuads(gTextures['hearts'],
+                                   gTextures['hearts']:getWidth()/2,
+                                   gTextures['hearts']:getHeight())
     }
 
     -- initialize state machine and set up to start on screen state
     gStateMachine = StateMachine({
         ['start'] = function() return StartScreenState() end,
         ['play'] = function() return PlayState() end,
+        ['serve'] = function() return ServeState() end,
+        ['game_over'] = function() return GameOverState() end,
     })
     gStateMachine:change('start')
 

@@ -30,6 +30,8 @@ require 'src/classes/StateMachine'
 require 'src/states/BaseState'
 require 'src/states/StartScreenState'
 require 'src/states/PlayState'
+require 'src/states/ServeState'
+require 'src/states/GameOverState'
 
 print('Dependencies loaded!')
 

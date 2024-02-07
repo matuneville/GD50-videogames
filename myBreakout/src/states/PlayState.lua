@@ -12,16 +12,18 @@
 
 PlayState = Class{__includes = BaseState} -- inheritance
 
-function PlayState:init()
-    self.paddle = Paddle(2)
-    self.ball = Ball(2)
+function PlayState:enter(params)
+    -- take all the params from serve state
+    self.paddle = params.paddle
+    self.bricks = params.bricks
+    self.health = params.health
+    self.score = params.score
+    self.ball = params.ball
 
-    -- define ball random starting velocity
-    self.ball.dx = math.random(-200, 200)
+    -- define ball random starting direction
+    self.ball.dx = math.random(-10, 10)
     self.ball.dy = math.random(-50, -60)
-
-    -- generate bricks table
-    self.bricks = LevelMaker.createMap()
+    self.ball:normalize()
 end
 
 
@@ -32,28 +34,46 @@ function PlayState:update(dt)
         love.event.quit()
     end
 
-
     self.paddle:update(dt)
     self.ball:update(dt)
+
+    -- check lost ball
+    if self.ball.y >= VIRT_HEIGHT then
+        gSounds['lost_ball']:play()
+        self.health = self.health - 1
+
+        if self.health == 0 then
+            gStateMachine:change('game_over', {score = self.score})
+        else
+            gStateMachine:change('serve', {
+                paddle = self.paddle,
+                score = self.score,
+                bricks = self.bricks,
+                health = self.health
+            })
+        end
+    end
 
     -- check ball collision with paddle
     if self.ball:isColliding(self.paddle) then
         self.ball.dy = -self.ball.dy
         self.ball.y = self.paddle.y - self.ball.height -- to avoid ball bugging below paddle
 
-        -- readjusts bouncing based on where it hits the paddle
+        -- readjusts bouncing based on where the ball hits the paddle
         --
-        -- if we hit the paddle on its left side while moving left...
-        if self.ball.x < self.paddle.x + (self.paddle.width / 2) and self.paddle.dx < 0 then
-            self.ball.dx = math.max(-100,
-                -self.ball.dx + -(8 * (self.paddle.x + self.paddle.width / 2 - self.ball.x)))
+        --if we hit the paddle on its left
+        if self.ball.x < self.paddle.x + (self.paddle.width / 2) then
+            self.ball.dx = -((self.paddle.x + (self.paddle.width / 2))-self.ball.x)*5
         
-        -- else if we hit the paddle on its right side while moving right...
-        elseif self.ball.x > self.paddle.x + (self.paddle.width / 2) and self.paddle.dx > 0 then
-            self.ball.dx = math.min(100,
-                -self.ball.dx + (8 * math.abs(self.paddle.x + self.paddle.width / 2 - self.ball.x)))
+        --if we hit the paddle on its right side 
+        elseif self.ball.x > self.paddle.x + (self.paddle.width / 2) then
+            self.ball.dx = (self.ball.x - (self.paddle.x + (self.paddle.width / 2)))*5
         end
 
+        -- increase ball's velocity just a bit every
+        -- paddle hit to speed up the game
+        self.ball.v = self.ball.v * 1.02
+        self.ball:normalize()
         gSounds['paddle_hit']:play()
     end
 
@@ -62,9 +82,10 @@ function PlayState:update(dt)
     -- its velocity direction
     for i, brick in pairs(self.bricks) do
         if brick.inPlay and self.ball:isColliding(brick) then
+
             brick:hit()
-            gSounds['brick_break']:play()
-            --PlayState:reorientBall(brick)
+            self.score = self.score + 10
+
             -- left edge; only check if we're moving right
             if self.ball.x + 2 < brick.x and self.ball.dx > 0 then
                 -- flip x velocity and reset position outside of brick
@@ -87,9 +108,12 @@ function PlayState:update(dt)
                 self.ball.y = brick.y + 16
             end
             -- slightly scale the y velocity to speed up the game
-            self.ball.dy = self.ball.dy * 1.02
+            --self.ball.dy = self.ball.dy * 1.02
+
+            self.ball:normalize()
+            
             break
-        end
+        end 
     end
 
 end
@@ -119,4 +143,7 @@ function PlayState:render()
         end
     end
 
+    -- render lifes and score
+    renderLifes(HEALTHS, self.health)
+    renderScore(self.score)
 end
