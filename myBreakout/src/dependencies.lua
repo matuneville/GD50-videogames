@@ -32,6 +32,9 @@ require 'src/states/StartScreenState'
 require 'src/states/PlayState'
 require 'src/states/ServeState'
 require 'src/states/GameOverState'
+require 'src/states/VictoryState'
+require 'src/states/EnterHighScoreState'
+require 'src/states/HighScoreState'
 
 print('Dependencies loaded!')
 

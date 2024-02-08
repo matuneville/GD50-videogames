@@ -126,7 +126,6 @@ function Brick:hit()
         end
     end
 
-    -- play a second layer sound if the brick is destroyed
     if not self.inPlay then
         gSounds['brick_break']:stop()
         gSounds['brick_break']:play()

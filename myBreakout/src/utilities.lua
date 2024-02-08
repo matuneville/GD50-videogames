@@ -79,6 +79,11 @@ function renderScore(score)
     love.graphics.printWithBorder('Score: '.. tostring(score), 5, 5, VIRT_WIDTH, 'left', 1, {1,1,1,1},{0,0,0,1})
 end
 
+function renderLevel(level)
+    love.graphics.setFont(gFonts['small'])
+    love.graphics.printWithBorder('Level '.. tostring(level), 5, VIRT_HEIGHT-5-5, VIRT_WIDTH, 'left', 1, {1,1,1,1},{0,0,0,1})
+end
+
 -- ######################################################################
 -- ######################################################################
 

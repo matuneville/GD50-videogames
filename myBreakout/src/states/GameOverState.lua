@@ -15,6 +15,8 @@ local tilt = 0.5
 
 function GameOverState:enter(params)
     self.score = params.score
+    self.highScores = params.highScores
+
     self.showMsg = true
     self.timer = 0
 end
@@ -22,7 +24,31 @@ end
 function GameOverState:update(dt)
     -- menu again
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-        gStateMachine:change('start')
+        -- see if score is higher than any in the high scores table
+        local highScore = false
+        
+        -- keep track of what high score ours overwrites, if any
+        local scoreIndex = 11
+        for i = 10, 1, -1 do
+            local score = self.highScores[i].score or 0
+            if self.score > score then
+                highScoreIndex = i
+                highScore = true
+            end
+        end
+
+        if highScore then
+            --gSounds['high-score']:play()
+            gStateMachine:change('enter_hs', {
+                highScores = self.highScores,
+                score = self.score,
+                scoreIndex = highScoreIndex
+            }) 
+        else 
+            gStateMachine:change('start', {
+                highScores = self.highScores
+            }) 
+        end
     end
     -- quit
     if love.keyboard.wasPressed('escape') then

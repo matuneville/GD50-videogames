@@ -12,9 +12,9 @@
 -- inherit baseState class
 StartScreenState = Class{__includes = BaseState}
 
-
-function StartScreenState:init()
+function StartScreenState:enter(params)
     self.option_highlighted = 1
+    self.highScores = params.highScores
 end
 
 
@@ -35,11 +35,23 @@ function StartScreenState:update(dt)
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
         if self.option_highlighted == 1 then
 
+            local levelBricks = LevelMaker.createMap(1)
+
             gStateMachine:change('serve', {
                 paddle = Paddle(1),
-                bricks = LevelMaker.createMap(20),
+                bricks = levelBricks,
                 health = HEALTHS,
-                score = 0
+                score = 0,
+                level = 1,
+                remainingBricks = #levelBricks,
+                highScores = self.highScores
+            })
+            
+            --or gStateMachine:change('highscores')
+            gSounds['menu_select']:play()
+        else
+            gStateMachine:change('highscores', {
+                highScores = self.highScores
             })
             
             --or gStateMachine:change('highscores')
@@ -65,8 +77,8 @@ function StartScreenState:render()
 
     -- print options to select
     love.graphics.setFont(gFonts['mid'])
-    local colorStart = self.option_highlighted == 1 and {0,0.3,0.7} or {0,0,0}
-    local colorHighs = self.option_highlighted == 2 and {0,0.3,0.7} or {0,0,0}
-    love.graphics.printWithBorder('Start', 0, 150, VIRT_WIDTH, 'center', 1, colorStart, {1,1,1})
-    love.graphics.printWithBorder('Highscores', 0, 170, VIRT_WIDTH, 'center', 1, colorHighs, {1,1,1})
+    local colorStart = self.option_highlighted == 1 and {0.08, 0.95, 0.93} or {1,1,1}
+    local colorHighs = self.option_highlighted == 2 and {0.08, 0.95, 0.93} or {1,1,1}
+    love.graphics.printWithBorder('Start', 0, 150, VIRT_WIDTH, 'center', 2, colorStart, {0,0,0})
+    love.graphics.printWithBorder('Highscores', 0, 170, VIRT_WIDTH, 'center', 2, colorHighs, {0,0,0})
 end

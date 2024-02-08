@@ -21,6 +21,10 @@ function ServeState:enter(params)
     self.bricks = params.bricks
     self.health = params.health
     self.score = params.score
+    self.level = params.level
+    self.remainingBricks = params.remainingBricks
+
+    self.highScores = params.highScores
 
     self.timer = 0
     self.showMsg = true
@@ -55,7 +59,10 @@ function ServeState:update(dt)
             bricks = self.bricks,
             health = self.health,
             score = self.score,
-            ball = self.ball
+            ball = self.ball,
+            level = self.level,
+            remainingBricks = self.remainingBricks,
+            highScores = self.highScores
         })
     end
 
@@ -84,6 +91,7 @@ function ServeState:render()
 
     renderScore(self.score)
     renderLifes(HEALTHS, self.health)
+    renderLevel(self.level)
 
     love.graphics.setFont(gFonts['mid'])
     if self.showMsg then

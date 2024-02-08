@@ -19,16 +19,25 @@ function PlayState:enter(params)
     self.health = params.health
     self.score = params.score
     self.ball = params.ball
+    self.level = params.level
+
+    self.highScores = params.highScores
 
     -- define ball random starting direction
     self.ball.dx = math.random(-10, 10)
     
     self.ball:normalize()
     self.paused = false
+
+    -- to check level victory
+    self.remainingBricks = params.remainingBricks
 end
 
 
 function PlayState:update(dt)
+
+    self:checkAndSetVictory()
+    print(tostring(self.remainingBricks))
 
     -- exit game with Esc
     if love.keyboard.wasPressed('escape') then
@@ -59,13 +68,19 @@ function PlayState:update(dt)
         self.paddle.dx = 180
 
         if self.health == 0 then
-            gStateMachine:change('game_over', {score = self.score})
+            gStateMachine:change('game_over', {
+                score = self.score, 
+                highScores = self.highScores
+            })
         else
             gStateMachine:change('serve', {
                 paddle = self.paddle,
                 score = self.score,
                 bricks = self.bricks,
-                health = self.health
+                health = self.health,
+                level = self.level,
+                remainingBricks = self.remainingBricks,
+                highScores = self.highScores
             })
         end
     end
@@ -128,6 +143,11 @@ function PlayState:update(dt)
                 self.ball.dy = -self.ball.dy
                 self.ball.y = brick.y + 16
             end
+
+            if not brick.inPlay then
+                self.remainingBricks = self.remainingBricks - 1
+            end
+
             self.ball:normalize()
             break
         end 
@@ -158,7 +178,6 @@ function PlayState:render()
         brick:renderParticles()
     end
 
-
     -- render player's paddle
     self.paddle:render()
 
@@ -177,5 +196,19 @@ function PlayState:render()
     -- render lifes and score
     renderLifes(HEALTHS, self.health)
     renderScore(self.score)
+    renderLevel(self.level)
 
+end
+
+
+function PlayState:checkAndSetVictory()
+    if self.remainingBricks == 0 then
+        --gSounds['victory']:play()
+        gStateMachine:change('victory', {
+            level = self.level,
+            paddle = self.paddle,
+            health = self.health,
+            score = self.score,
+        })
+    end
 end
