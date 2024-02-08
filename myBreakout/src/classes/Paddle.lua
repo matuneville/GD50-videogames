@@ -36,7 +36,7 @@ function Paddle:init(skin)
     self.x = VIRT_WIDTH / 2 - self.width / 2
     self.y = VIRT_HEIGHT - 16 - self.height
 
-    self.dx = PADDLE_SPEED
+    self.dx = 180
 end
 
 

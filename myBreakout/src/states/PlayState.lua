@@ -22,8 +22,9 @@ function PlayState:enter(params)
 
     -- define ball random starting direction
     self.ball.dx = math.random(-10, 10)
-    self.ball.dy = math.random(-50, -60)
+    
     self.ball:normalize()
+    self.paused = false
 end
 
 
@@ -34,6 +35,19 @@ function PlayState:update(dt)
         love.event.quit()
     end
 
+    if self.paused then
+        if love.keyboard.wasPressed('space') then
+            self.paused = false
+            gSounds['pause']:play()
+        else
+            return
+        end
+    elseif love.keyboard.wasPressed('space') then
+        self.paused = true
+        gSounds['pause']:play()
+        return
+    end
+
     self.paddle:update(dt)
     self.ball:update(dt)
 
@@ -41,6 +55,8 @@ function PlayState:update(dt)
     if self.ball.y >= VIRT_HEIGHT then
         gSounds['lost_ball']:play()
         self.health = self.health - 1
+
+        self.paddle.dx = 180
 
         if self.health == 0 then
             gStateMachine:change('game_over', {score = self.score})
@@ -62,17 +78,18 @@ function PlayState:update(dt)
         -- readjusts bouncing based on where the ball hits the paddle
         --
         --if we hit the paddle on its left
-        if self.ball.x < self.paddle.x + (self.paddle.width / 2) then
-            self.ball.dx = -((self.paddle.x + (self.paddle.width / 2))-self.ball.x)*5
+        if self.ball.x+self.ball.width/2 < self.paddle.x + (self.paddle.width / 2) then
+            self.ball.dx = -((self.paddle.x + (self.paddle.width / 2))-self.ball.x+self.ball.width/2)*5
         
         --if we hit the paddle on its right side 
-        elseif self.ball.x > self.paddle.x + (self.paddle.width / 2) then
-            self.ball.dx = (self.ball.x - (self.paddle.x + (self.paddle.width / 2)))*5
+        elseif self.ball.x+self.ball.width/2 > self.paddle.x + (self.paddle.width / 2) then
+            self.ball.dx = (self.ball.x+self.ball.width/2 - (self.paddle.x + (self.paddle.width / 2)))*5
         end
 
-        -- increase ball's velocity just a bit every
+        -- increase ball's and paddle's velocity just a bit every
         -- paddle hit to speed up the game
         self.ball.v = self.ball.v * 1.02
+        self.paddle.dx = self.paddle.dx * 1.02
         self.ball:normalize()
         gSounds['paddle_hit']:play()
     end
@@ -81,10 +98,14 @@ function PlayState:update(dt)
     -- check ball collision with bricks, and reorient
     -- its velocity direction
     for i, brick in pairs(self.bricks) do
+
+        brick:update(dt)
+
         if brick.inPlay and self.ball:isColliding(brick) then
 
             brick:hit()
-            self.score = self.score + 10
+            -- add score based on its tier
+            self.score = self.score + (brick.tier * 200 + brick.color * 25)
 
             -- left edge; only check if we're moving right
             if self.ball.x + 2 < brick.x and self.ball.dx > 0 then
@@ -107,15 +128,10 @@ function PlayState:update(dt)
                 self.ball.dy = -self.ball.dy
                 self.ball.y = brick.y + 16
             end
-            -- slightly scale the y velocity to speed up the game
-            --self.ball.dy = self.ball.dy * 1.02
-
             self.ball:normalize()
-            
             break
         end 
     end
-
 end
 
 function PlayState:render()
@@ -129,12 +145,6 @@ function PlayState:render()
     love.graphics.rectangle('fill', 0, 0, VIRT_WIDTH, VIRT_HEIGHT)
     love.graphics.setColor(1,1,1,1)
 
-    -- render player's paddle
-    self.paddle:render()
-
-    -- render ball
-    self.ball:render()
-
     -- render bricks
     -- check ball collision with paddle
     for i, brick in pairs(self.bricks) do
@@ -143,7 +153,29 @@ function PlayState:render()
         end
     end
 
+    -- render all particle systems
+    for k, brick in pairs(self.bricks) do
+        brick:renderParticles()
+    end
+
+
+    -- render player's paddle
+    self.paddle:render()
+
+    -- render ball
+    self.ball:render()
+
+    -- pause text
+    if self.paused then
+        love.graphics.setColor(0,0,0,0.5)
+        love.graphics.rectangle('fill', 0, 0, VIRT_WIDTH, VIRT_HEIGHT)
+        love.graphics.setFont(gFonts['pause'])
+        love.graphics.setColor(1,1,1,1)
+        love.graphics.printf("PAUSED", 0, VIRT_HEIGHT / 2 - 16, VIRT_WIDTH, 'center')
+    end
+    
     -- render lifes and score
     renderLifes(HEALTHS, self.health)
     renderScore(self.score)
+
 end

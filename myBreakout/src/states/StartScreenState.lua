@@ -37,7 +37,7 @@ function StartScreenState:update(dt)
 
             gStateMachine:change('serve', {
                 paddle = Paddle(1),
-                bricks = LevelMaker.createMap(1000),
+                bricks = LevelMaker.createMap(20),
                 health = HEALTHS,
                 score = 0
             })

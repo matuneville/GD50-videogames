@@ -111,42 +111,36 @@ end
 
 -- Function to return the Breakout paddle quads from 'blocks.png'
 function generateQuadsPaddles(atlas)
-    -- to store and return
-    local paddleQuads = {}
+    local x = 0
+    local y = 64
+
     local counter = 1
-
-    -- 'blocks.png' has 6 sprites horizontally, and 12 vertically
-    local tileWidth = atlas:getWidth() / 6
-    local tileHeight = atlas:getHeight() / 12
-
-    -- paddles start at 5th line, and 1st column
-    local x = 0 -- cause it's top left corner of quad
-    local y = 4*tileHeight
+    local quads = {}
 
     for i = 0, 3 do
         -- smallest
-        paddleQuads[counter] = love.graphics.newQuad(x, y, tileWidth, tileHeight,
+        quads[counter] = love.graphics.newQuad(x, y, 32, 16,
             atlas:getDimensions())
         counter = counter + 1
         -- medium
-        paddleQuads[counter] = love.graphics.newQuad(x + 1*tileWidth, y, 2*tileWidth, tileHeight,
+        quads[counter] = love.graphics.newQuad(x + 32, y, 64, 16,
             atlas:getDimensions())
         counter = counter + 1
         -- large
-        paddleQuads[counter] = love.graphics.newQuad(x + 3*tileWidth, y, 3*tileWidth, tileHeight,
+        quads[counter] = love.graphics.newQuad(x + 96, y, 96, 16,
             atlas:getDimensions())
         counter = counter + 1
         -- huge
-        paddleQuads[counter] = love.graphics.newQuad(x, y + tileHeight, 4*tileWidth, tileHeight,
+        quads[counter] = love.graphics.newQuad(x, y + 16, 128, 16,
             atlas:getDimensions())
         counter = counter + 1
 
         -- prepare X and Y for the next set of paddles
         x = 0
-        y = y + 2*tileHeight
+        y = y + 32
     end
 
-    return paddleQuads
+    return quads
 end
 
 
@@ -179,36 +173,5 @@ end
 
 
 function generateQuadsBricks(atlas)
-    -- to store and return
-    local brickQuads = {}
-    local counter = 1
-
-    local tileWidth = atlas:getWidth() / 6
-    local tileHeight = atlas:getHeight() / 12
-
-    local x = 0
-    local y = 0
-
-
-    for i=0, 5, 1 do
-        brickQuads[counter] = love.graphics.newQuad(x, y, tileWidth, tileHeight, atlas:getDimensions())
-        counter = counter+1
-
-        brickQuads[counter] = love.graphics.newQuad(x, y+tileHeight, tileWidth, tileHeight, atlas:getDimensions())
-        counter = counter+1
-
-        brickQuads[counter] = love.graphics.newQuad(x, y+2*tileHeight, tileWidth, tileHeight, atlas:getDimensions())
-        counter = counter+1
-
-        if i <= 3 then
-            brickQuads[counter] = love.graphics.newQuad(x, y+3*tileHeight, tileWidth, tileHeight,
-                atlas:getDimensions())
-            counter = counter+1
-        end
-
-        x = x + tileWidth
-    end
-
-    return brickQuads
+    return table.slice(generateQuads(atlas, 32, 16), 1, 21)
 end
-

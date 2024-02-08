@@ -30,6 +30,7 @@ function love.load()
         ['play_bg'] = love.graphics.newImage('assets/textures/play_bg.png'),
         ['blocks'] = love.graphics.newImage('assets/textures/blocks.png'),
         ['hearts'] = love.graphics.newImage('assets/textures/hearts.png'),
+        ['brick_particle'] = love.graphics.newImage('assets/textures/brick_particle.png'),
     }
     
     gSounds = { -- download sounds with gain = -18 dB so they sound low
@@ -39,12 +40,14 @@ function love.load()
         ['paddle_hit'] = love.audio.newSource('assets/sounds/paddle_hit.wav', 'static'),
         ['brick_break'] = love.audio.newSource('assets/sounds/brick_break.wav', 'static'),
         ['lost_ball'] = love.audio.newSource('assets/sounds/lost_ball.wav', 'static'),
+        ['pause'] = love.audio.newSource('assets/sounds/pause.wav', 'static'),
     }
 
     gFonts = {
         ['title'] = love.graphics.newFont('assets/fonts/Vermin1989.ttf', 48),
         ['big'] = love.graphics.newFont('assets/fonts/Vermin1989.ttf', 32),
         ['mid'] = love.graphics.newFont('assets/fonts/8-bit.ttf', 10),
+        ['pause'] = love.graphics.newFont('assets/fonts/8-bit.ttf', 20),
         ['small'] = love.graphics.newFont('assets/fonts/8-bit.ttf', 5),
     }
 
