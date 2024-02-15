@@ -25,10 +25,6 @@ Interesting topics covered by the lecture:
 - Drawing shapes and text
 - Sound effects 
 
-### Assignment: AI-controlled paddles
-
-The challenge is to implement a basic AI-controlled paddle such that both paddles will try to deflect the ball at all times. The script is implemented in the `src/main_task.lua` file.
-
 ## 2. Flappy Bird
 
 My version of Flappy Bird, **Dizzy Bird**
@@ -40,18 +36,11 @@ My version of Flappy Bird, **Dizzy Bird**
 |--| 
 
 Interesting topics covered by the lecture:
-- Procedural generation
+- Procedural generation and randomness
 - Infinite scrolling
 - Usage of sprites
 - State Machine
 - Simple physics
-
-### Assignment: Randomness, award and Pause
-
-- Randomize the gap between trunks, so the distance between each both obstacles is not hardcoded
-- Randomize the trunk pair spawn interval. Trunk pairs should spawn a random interval of few seconds apart.
-- Award a “medal” in the ScoreState: Different trophies based on the points scored that life. Choose 3 different ones, as well as the minimum score needed for each.
-
 
 ## 3. Breakout
 
@@ -62,3 +51,10 @@ Interesting topics covered by the lecture:
 
 | ![img](myBreakout/img/breakout3.png) |
 |--| 
+
+Interesting topics covered by the lecture:
+- Sprite sheets
+- Procedural layouts and levels
+- Advanced state managing
+- Particle system
+- Improved collision and ricochet 
