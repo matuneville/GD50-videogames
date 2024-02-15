@@ -58,3 +58,7 @@ Interesting topics covered by the lecture:
 - Advanced state managing
 - Particle system
 - Improved collision and ricochet 
+
+## 4. Match 3
+
+Tile-matching videogame, like the famous puzzle-type games **Candy Crush** or **Bejeweled**
