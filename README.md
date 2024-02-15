@@ -33,11 +33,11 @@ The challenge is to implement a basic AI-controlled paddle such that both paddle
 
 My version of Flappy Bird, **Dizzy Bird**
 
-| ![img](myFlappyBird/img/dizzyBird1.png)|![img](myFlappyBird/img/dizzyBird2.png) |
+| ![img](myFlappyBird/img/dizzyBird1.png)|![img](myFlappyBird/img/dizzyBird3.png) |
 |---|---|
 
-| ![img](myFlappyBird/img/dizzyBird3.png) | ![img](myFlappyBird/img/dizzyBird4.png) |
-|--| -- |
+| ![img](myFlappyBird/img/dizzyBird2.png) |
+|--| 
 
 Interesting topics covered by the lecture:
 - Procedural generation
@@ -51,6 +51,14 @@ Interesting topics covered by the lecture:
 - Randomize the gap between trunks, so the distance between each both obstacles is not hardcoded
 - Randomize the trunk pair spawn interval. Trunk pairs should spawn a random interval of few seconds apart.
 - Award a “medal” in the ScoreState: Different trophies based on the points scored that life. Choose 3 different ones, as well as the minimum score needed for each.
-- Implement a pause feature: The user can press “P” to pause the game state, and then it again to resume the game. The music should pause
+
 
 ## 3. Breakout
+
+**Breakout** or **Arkanoid**-like videogame
+
+| ![img](myBreakout/img/breakout1.png) |![img](myBreakout/img/breakout2.png) |
+|---|---|
+
+| ![img](myBreakout/img/breakout3.png) |
+|--| 
