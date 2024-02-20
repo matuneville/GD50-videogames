@@ -11,10 +11,10 @@ It contains the recreated videogames of each lecture with a personal style, and 
 
 Retro-aesthetic **Pong** as the classic videogame.  
 
-| ![img](myPong/img/pong1.png)|![img](myPong/img/pong2.png) |
+| ![img](games/myPong/img/pong1.png)|![img](games/myPong/img/pong2.png) |
 |---|---|
 
-| ![img](myPong/img/pong3.png) |
+| ![img](games/myPong/img/pong3.png) |
 | -- |  
 
 Interesting topics covered by the lecture:
@@ -29,10 +29,10 @@ Interesting topics covered by the lecture:
 
 My version of Flappy Bird, **Dizzy Bird**
 
-| ![img](myFlappyBird/img/dizzyBird1.png)|![img](myFlappyBird/img/dizzyBird3.png) |
+| ![img](games/myFlappyBird/img/dizzyBird1.png)|![img](games/myFlappyBird/img/dizzyBird3.png) |
 |---|---|
 
-| ![img](myFlappyBird/img/dizzyBird2.png) |
+| ![img](games/myFlappyBird/img/dizzyBird2.png) |
 |--| 
 
 Interesting topics covered by the lecture:
@@ -46,10 +46,10 @@ Interesting topics covered by the lecture:
 
 **Breakout** or **Arkanoid**-like videogame
 
-| ![img](myBreakout/img/breakout1.png) |![img](myBreakout/img/breakout2.png) |
+| ![img](games/myBreakout/img/breakout1.png) |![img](games/myBreakout/img/breakout2.png) |
 |---|---|
 
-| ![img](myBreakout/img/breakout3.png) |
+| ![img](games/myBreakout/img/breakout3.png) |
 |--| 
 
 Interesting topics covered by the lecture:
@@ -61,4 +61,17 @@ Interesting topics covered by the lecture:
 
 ## 4. Match 3
 
-Tile-matching videogame, like the famous puzzle-type games **Candy Crush** or **Bejeweled**
+Tile-matching videogame, such as the famous puzzle games **Candy Crush** or **Bejeweled**. It incorporates the same sprites and much of the code from the course. The key learning focus was on mastering timer controls and implementing tweening for dynamic tile and color animations. 
+
+| ![img](games/myMatch3/img/match3_1.png) |![img](games/myMatch3/img/match3_2.png) |
+|---|---|
+
+| ![img](games/myMatch3/img/match3_3.png) |
+|--| 
+
+Interesting topics covered by the lecture:
+- Animations with tweening
+- Timer machine
+- Procedural grids
+
+## 5. Mario Bros
