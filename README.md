@@ -80,6 +80,24 @@ Interesting topics covered by the lecture:
 - Timer machine
 - Procedural grids
 
-## 5. Mario Bros  
+## 5. Platformer
 
-[Graphics assets used](https://opengameart.org/content/pixel-platformer-0)
+A basic platformer like **Mario Bros** or **Spelunky** (due to its procedural level generation).  
+
+[Graphics assets used](https://opengameart.org/content/pixel-platformer-0)  
+
+> [!NOTE]
+> **TO DO**: Fix the entity system
+
+| ![img](games/myMarioBros/img/alien_bros1.png) |![img](games/myMarioBros/img/alien_bros3.png) |
+|---|---|
+
+| ![img](games/myMarioBros/img/alien_bros2.png) |
+|--| 
+
+Interesting topics covered by the lecture:
+- Platformer physics
+- Advanced level procedural generation
+- Tile maps
+- 2D animations
+- Entities
