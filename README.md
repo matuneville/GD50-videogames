@@ -27,7 +27,9 @@ Interesting topics covered by the lecture:
 
 ## 2. Flappy Bird
 
-My version of Flappy Bird, **Dizzy Bird**
+My version of Flappy Bird, **Dizzy Bird**.  
+
+Graphics and sound effects made by me.  
 
 | ![img](games/myFlappyBird/img/dizzyBird1.png)|![img](games/myFlappyBird/img/dizzyBird3.png) |
 |---|---|
@@ -44,7 +46,9 @@ Interesting topics covered by the lecture:
 
 ## 3. Breakout
 
-**Breakout** or **Arkanoid**-like videogame
+**Breakout** or **Arkanoid**-like videogame.  
+
+Made with same assets as the used in the lecture.
 
 | ![img](games/myBreakout/img/breakout1.png) |![img](games/myBreakout/img/breakout2.png) |
 |---|---|
@@ -61,7 +65,9 @@ Interesting topics covered by the lecture:
 
 ## 4. Match 3
 
-Tile-matching videogame, such as the famous puzzle games **Candy Crush** or **Bejeweled**. It incorporates the same sprites and much of the code from the course. The key learning focus was on mastering timer controls and implementing tweening for dynamic tile and color animations. 
+Tile-matching videogame, such as the famous puzzle games **Candy Crush** or **Bejeweled**. It incorporates the same sprites and much of the code from the course. The key learning focus was on mastering timer controls and implementing tweening for dynamic tile and color animations.  
+
+Made with same assets as the used in the lecture.
 
 | ![img](games/myMatch3/img/match3_1.png) |![img](games/myMatch3/img/match3_2.png) |
 |---|---|
@@ -74,4 +80,6 @@ Interesting topics covered by the lecture:
 - Timer machine
 - Procedural grids
 
-## 5. Mario Bros
+## 5. Mario Bros  
+
+[Graphics assets used](https://opengameart.org/content/pixel-platformer-0)
