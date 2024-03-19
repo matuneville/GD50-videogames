@@ -101,3 +101,24 @@ Interesting topics covered by the lecture:
 - Tile maps
 - 2D animations
 - Entities
+
+
+## 6. Dungeon game
+
+Videogame with dungeon map, like the classic **Zelda**, with the essence of **The Binding of Isaac** for the mobs and random dungeon generator. I developed a graph algorithm for creating procedural dungeon maps, each room having some certain neighbors every time initialized. 
+
+Same assets as the lecture.  
+
+
+|Videogame|Model of dungeon map generated randomly|
+|---|---|
+| ![img](games/myDungeonGame/img/img1.png) |![img](games/myDungeonGame/img/img2.png) |
+
+
+
+Interesting topics covered by the lecture:
+- Top-down perspective
+- Procedural dungeon generator
+- Random map generation with graphs
+- Hitboxes
+- Screen-scrolling
